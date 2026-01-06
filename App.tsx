@@ -10,6 +10,7 @@ import Strategies from './pages/Strategies';
 import Resources from './pages/Resources';
 import Membership from './pages/Membership';
 import News from './pages/News';
+import NewsDetail from './pages/NewsDetail';
 import Contact from './pages/Contact';
 import ChatBot from './components/ChatBot';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -243,6 +244,7 @@ const App: React.FC = () => {
             <Route path="/resources" element={<Resources />} />
             <Route path="/membership" element={<Membership />} />
             <Route path="/news" element={<News />} />
+            <Route path="/news/:newsId" element={<NewsDetail />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

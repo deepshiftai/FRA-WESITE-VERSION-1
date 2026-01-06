@@ -309,34 +309,44 @@ export const SECRETARIAT_MEMBERS: SecretariatMember[] = [
 
 export const NEWS_ITEMS: NewsItem[] = [
   { 
+    id: 'nat-health-conf-2025',
     date: '2025-09-15', 
     title: 'Uganda National Health Conference', 
     description: 'ED Agnes Kirabo addressed contaminated food links to national disease burden.',
-    category: 'Events'
+    category: 'Events',
+    fullContent: 'At the recently concluded Uganda National Health Conference, the Executive Director of the Food Rights Alliance, Agnes Kirabo, delivered a powerful keynote address focusing on the intersection of food safety and national health. She highlighted alarming data linking contaminated food to a significant portion of Uganda\'s non-communicable disease burden. "We cannot talk about universal health coverage without addressing what our people are putting on their plates," she stated. The Alliance called for stricter regulation of hazardous agrochemicals and enhanced nutrition literacy as foundational pillars of the national health strategy.'
   },
   { 
+    id: 'ndp-iv-consult-2024',
     date: '2024-09-10', 
     title: 'NDP IV Consultations', 
     description: 'Workshops in Tooro region to identify priorities for the Fourth National Development Plan.',
-    category: 'Policy'
+    category: 'Policy',
+    fullContent: 'Food Rights Alliance successfully concluded a series of regional stakeholder workshops in the Tooro sub-region as part of the consultations for the Fourth National Development Plan (NDP IV). Participants, including smallholder farmers, local government officials, and civil society representatives, identified key priorities such as climate-resilient agricultural infrastructure and the institutionalization of land rights for women. These findings will be compiled into a position paper to be presented to the National Planning Authority, ensuring that grassroots voices shape the future of Uganda\'s agrifood systems.'
   },
   { 
+    id: 'agri-chem-act-2024',
     date: '2024-07-22', 
     title: 'Agriculture Chemical Control Act', 
     description: 'Celebrated presidential assent to legislation regulating hazardous agrochemicals.',
-    category: 'Advocacy'
+    category: 'Advocacy',
+    fullContent: 'In a major victory for food safety advocacy, the Food Rights Alliance celebrates the presidential assent to the Agriculture Chemical Control Act 2024. For over five years, the Alliance, in collaboration with the Parliamentary Alliance on Food and Nutrition Security, has lobbied for more robust regulation of pesticides and herbicides that pose risks to human health and the environment. This new law provides the legal framework needed to phase out highly hazardous chemicals and mandates clearer labeling and training for agro-input dealers.'
   },
   { 
+    id: 'agrifood-summit-2025',
     date: '2025-06-05', 
     title: 'Agri-food Systems Summit', 
     description: 'Showcasing innovative financing models for Ugandan agri-food value chains.',
-    category: 'Events'
+    category: 'Events',
+    fullContent: 'The 2025 Agri-food Systems Summit brought together investors, policy experts, and farmer cooperatives to discuss "Financing the Transformation." FRA presented a case study on the Climate-Resilience Fund, demonstrating how micro-grants for local water harvesting can significantly de-risk smallholder farming. The summit ended with a call for the government to increase the agricultural budget allocation to at least 10% of the national budget, in line with the Malabo Declaration commitments.'
   },
   { 
+    id: 'we-are-able-2025',
     date: '2025-09-28', 
     title: '"We are Able!" Closing Event', 
     description: 'Celebrating achievements in disability-inclusive food security in Kampala.',
-    category: 'Institutional'
+    category: 'Institutional',
+    fullContent: 'The "We are Able!" project concluded with a celebration of its impact on disability-inclusive food security in Kampala and surrounding districts. Over the past three years, the project has empowered over 2,000 persons with disabilities to engage in urban farming and advocacy for inclusive service delivery. "Food rights are universal, yet people with disabilities are often the last to be considered in food policy," noted the project lead. The closing event showcased kitchen garden innovations and success stories of economic independence.'
   }
 ];
 

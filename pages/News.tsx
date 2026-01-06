@@ -1,5 +1,6 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { NEWS_ITEMS } from '../constants';
 import { NewsItem } from '../types';
 
@@ -177,10 +178,14 @@ const News: React.FC = () => {
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">{item.title}</h3>
                   <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{item.description}</p>
-                  <button aria-label={`Read full story about ${item.title}`} className="text-emerald-700 font-bold text-sm hover:underline self-start flex items-center group/link">
+                  <Link 
+                    to={`/news/${item.id}`}
+                    aria-label={`Read full story about ${item.title}`} 
+                    className="text-emerald-700 font-bold text-sm hover:underline self-start flex items-center group/link"
+                  >
                     Read Story 
                     <i className="fa-solid fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

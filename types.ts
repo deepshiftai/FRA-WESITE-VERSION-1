@@ -37,9 +37,11 @@ export interface SecretariatMember {
 }
 
 export interface NewsItem {
+  id: string;
   date: string;
   title: string;
   description: string;
+  fullContent?: string;
   category: 'Advocacy' | 'Policy' | 'Events' | 'Research' | 'Institutional';
 }
 
