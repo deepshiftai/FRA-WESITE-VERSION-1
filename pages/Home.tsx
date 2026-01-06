@@ -382,14 +382,14 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="relative w-full overflow-hidden h-[600px]">
+        <div className="relative w-full overflow-hidden h-[500px]">
           <div 
             className="flex transition-transform duration-700 ease-out h-full"
             style={{ transform: `translateX(-${galleryIndex * 100}%)` }}
           >
             {GALLERY_IMAGES.map((img, i) => (
-              <div key={i} className="min-w-full h-full relative px-4 md:px-0">
-                <div className="h-full max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] md:rounded-none md:max-w-full relative shadow-2xl">
+              <div key={i} className="min-w-full h-full relative px-4">
+                <div className="h-full max-w-5xl mx-auto overflow-hidden rounded-[2.5rem] relative shadow-xl">
                   <img 
                     src={img.url} 
                     alt={img.title} 
@@ -398,8 +398,8 @@ const Home: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-12 left-12 right-12 text-white">
                     <div className="max-w-2xl">
-                      <h3 className="text-3xl font-bold mb-2">{img.title}</h3>
-                      <p className="text-emerald-100 text-lg opacity-90">{img.desc}</p>
+                      <h3 className="text-2xl font-bold mb-2">{img.title}</h3>
+                      <p className="text-emerald-100 text-base opacity-90">{img.desc}</p>
                     </div>
                   </div>
                 </div>
