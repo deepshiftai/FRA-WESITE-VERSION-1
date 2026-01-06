@@ -1,0 +1,7 @@
+{
+  "name": "Food Rights Alliance (FRA) Uganda VERSION 1",
+  "description": "A comprehensive digital platform for the Food Rights Alliance Uganda, featuring institutional frameworks, thematic programs, hunger metrics, and strategic advocacy initiatives dedicated to the human right to adequate food.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
