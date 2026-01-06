@@ -6,6 +6,7 @@ import { Project } from '../types';
 
 const Projects: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   
   const categories = ['All', 'Healthy Diets', 'Equitable Production', 'Food Governance', 'Target Initiatives'];
 
@@ -138,8 +139,68 @@ const Projects: React.FC = () => {
         )}
       </section>
 
+      {/* Geographical Impact Section */}
+      <section className="py-24 bg-white border-y border-slate-100" aria-labelledby="geo-impact-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="relative group cursor-zoom-in">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-amber-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <div className="relative bg-white rounded-[2.5rem] overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://i.postimg.cc/bN2nZ4p3/FRA-FOOTPRINT.jpg" 
+                    alt="Map of FRA operations and geographical footprint in Uganda" 
+                    className="w-full h-auto object-cover select-none"
+                    onDoubleClick={() => setIsMapModalOpen(true)}
+                  />
+                  <div className="absolute bottom-4 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="bg-black/60 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur-sm uppercase font-black tracking-widest">
+                      Double Click for Full View
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="order-1 lg:order-2">
+              <span className="text-emerald-700 font-bold text-xs uppercase tracking-[0.3em] mb-4 block">National Reach</span>
+              <h2 id="geo-impact-heading" className="text-4xl font-bold text-slate-900 mb-6 leading-tight">Geographical Impact of FRA</h2>
+              <div className="space-y-6">
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  The Food Rights Alliance strategic footprint spans the diverse landscape of Uganda, reaching into the heart of communities to drive agrifood system transformation. 
+                </p>
+                <p className="text-slate-600 leading-relaxed">
+                  Our operations are strategically clustered into regional hubs across Central, Western (Rwenzori), and Eastern Uganda. This localized approach allows for deep grassroots engagement while maintaining a unified national advocacy voice. From the cattle corridor of Karamoja to the fertile highlands of the West, we ensure the right to food is realized in every corner of the nation through land rights protection, nutrition literacy, and climate-resilience building.
+                </p>
+                
+                <div className="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-700 shrink-0">
+                      <i className="fa-solid fa-map-pin"></i>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm mb-1">Regional Networks</h4>
+                      <p className="text-xs text-slate-500">4 established hubs coordinating grassroots food security.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-700 shrink-0">
+                      <i className="fa-solid fa-earth-africa"></i>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm mb-1">Diverse Ecosystems</h4>
+                      <p className="text-xs text-slate-500">Tailored solutions for arid, highland, and urban zones.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Strategic Call to Action */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-20">
         <div className="bg-[#3D2314] rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden">
           <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -178,6 +239,43 @@ const Projects: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Map Full View Lightbox */}
+      {isMapModalOpen && (
+        <div 
+          className="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setIsMapModalOpen(false)}
+        >
+          <div className="absolute top-8 right-8 flex items-center space-x-4">
+            <span className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] hidden sm:block">
+              Click anywhere to close
+            </span>
+            <button 
+              onClick={() => setIsMapModalOpen(false)}
+              className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
+              aria-label="Close full view"
+            >
+              <i className="fa-solid fa-xmark text-xl"></i>
+            </button>
+          </div>
+          
+          <div 
+            className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center animate-in zoom-in-95 duration-500"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src="https://i.postimg.cc/bN2nZ4p3/FRA-FOOTPRINT.jpg" 
+              alt="Full view of FRA foot print" 
+              className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
+          
+          <div className="absolute bottom-8 left-0 right-0 text-center">
+            <h4 className="text-white text-lg font-bold">FRA Operational Footprint</h4>
+            <p className="text-emerald-400 text-xs font-black uppercase tracking-widest mt-1">Uganda National Impact Hubs</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

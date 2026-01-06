@@ -1,29 +1,56 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { NEWS_ITEMS } from '../constants';
 import { NewsItem } from '../types';
+
+const GALLERY_IMAGES = [
+  "https://i.postimg.cc/Wb1z0g2s/1738063120521.jpg",
+  "https://i.postimg.cc/NfjFRmgf/Agnesd-Kirabo.jpg",
+  "https://i.postimg.cc/VkSNVwrZ/asdasdsad.jpg",
+  "https://i.postimg.cc/y8JNbKgv/Civil-Society-420x280vfdsff.jpg",
+  "https://i.postimg.cc/4N2dPydB/fhffhj.jpg",
+  "https://i.postimg.cc/pXcTCrTC/fhffjhgj.jpg",
+  "https://i.postimg.cc/bNVJgrJm/FRA-new-members.jpg",
+  "https://i.postimg.cc/fTRyYmwt/FRA-new-members-new.jpg",
+  "https://i.postimg.cc/2896Gy6n/G4-j-DOt-WQAAclr-K.jpg",
+  "https://i.postimg.cc/02XQnjQY/G4u-mj-YXIAAUfcq.jpg",
+  "https://i.postimg.cc/BQnb2Hqs/G4v0Zw-UWk-AAv-FGJ.jpg",
+  "https://i.postimg.cc/kgV5pC6s/G70f-H-g-Ws-AI2Of-Ffhf.jpg",
+  "https://i.postimg.cc/Wb1z0g2V/images-(2)cgdgd.jpg",
+  "https://i.postimg.cc/MKpH1VWj/images-(2)fhfhf.jpg",
+  "https://i.postimg.cc/VLkvXnYC/images-(2)ghgj.jpg",
+  "https://i.postimg.cc/QxYtmCty/imagesffgg.jpg",
+  "https://i.postimg.cc/WbY38z3d/IMG-20200607-115407-403-1.jpg",
+  "https://i.postimg.cc/m2pDjkDk/IMG-20220720-WA0009-1.jpg",
+  "https://i.postimg.cc/yYpdjxdX/latest02pix-data.jpg",
+  "https://i.postimg.cc/mgcr54zw/MEMBERS-OF-THE-WOMEN-LAND-RIGHTS-MOVEMENT.jpg",
+  "https://i.postimg.cc/dtV3Grq3/new-membership-FRA-1234567.jpg",
+  "https://i.postimg.cc/ZKsRHnRj/Right-to-health.jpg",
+  "https://i.postimg.cc/MpcGFwfz/Screenshot-2026-01-06-215648.png",
+  "https://i.postimg.cc/vZ1mNygv/sdsdadsad.jpg",
+  "https://i.postimg.cc/gktJsjJ6/sogam.jpg",
+  "https://i.postimg.cc/NfjFRmgL/strategic-results-4-landscape.jpg",
+  "https://i.postimg.cc/pXcTCrTy/uganda-clinic-article-rtf.png",
+  "https://i.postimg.cc/FsHz039Y/Whats-App-Image-2025-01-09-at-23-10-34-72adc5ae-28467603.jpg"
+];
 
 const News: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [sortOrder, setSortOrder] = useState<'Newest' | 'Oldest'>('Newest');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const categories = ['All', 'Advocacy', 'Policy', 'Events', 'Research', 'Institutional'];
 
   const filteredAndSortedNews = useMemo(() => {
     let items = [...NEWS_ITEMS];
-    
-    // Filtering
     if (activeFilter !== 'All') {
       items = items.filter(item => item.category === activeFilter);
     }
-
-    // Sorting
     items.sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
       return sortOrder === 'Newest' ? dateB - dateA : dateA - dateB;
     });
-
     return items;
   }, [activeFilter, sortOrder]);
 
@@ -39,6 +66,31 @@ const News: React.FC = () => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateStr).toLocaleDateString(undefined, options);
   };
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setLightboxIndex(null);
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex + 1) % GALLERY_IMAGES.length);
+    }
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
+    }
+  };
+
+  // Duplicate for infinite scroll
+  const scrollingGallery = [...GALLERY_IMAGES, ...GALLERY_IMAGES];
 
   return (
     <div className="bg-stone-50 pb-20">
@@ -176,6 +228,109 @@ const News: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* News Photo Gallery Section */}
+      <section className="py-24 bg-white border-t border-slate-100 overflow-hidden" aria-labelledby="gallery-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 id="gallery-heading" className="text-[10px] font-black text-emerald-700 uppercase tracking-[0.4em] mb-4">News Gallery</h2>
+            <h3 className="text-4xl font-bold text-slate-900 leading-tight">Capturing Moments of Impact</h3>
+            <p className="text-slate-500 mt-4 text-sm font-medium uppercase tracking-widest">Double click any image to view in full detail</p>
+          </div>
+        </div>
+
+        <div className="relative flex overflow-hidden group/gallery">
+          <div className="animate-gallery-scroll flex whitespace-nowrap py-10">
+            {scrollingGallery.map((url, idx) => (
+              <div 
+                key={idx} 
+                className="mx-4 flex-shrink-0 w-80 h-60 rounded-3xl overflow-hidden shadow-lg border border-slate-200 transition-all duration-500 group-hover:grayscale-[50%] hover:!grayscale-0 hover:scale-105 cursor-zoom-in relative"
+                onDoubleClick={() => openLightbox(idx % GALLERY_IMAGES.length)}
+              >
+                <img 
+                  src={url} 
+                  alt="Gallery Highlight" 
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                  <span className="text-white text-[10px] font-black uppercase tracking-widest bg-emerald-600/80 px-4 py-1.5 rounded-full backdrop-blur-sm">View Full</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <style>{`
+            @keyframes gallery-scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .animate-gallery-scroll {
+              animation: gallery-scroll 120s linear infinite;
+            }
+            .group-gallery:hover .animate-gallery-scroll {
+              animation-play-state: paused;
+            }
+          `}</style>
+        </div>
+      </section>
+
+      {/* Lightbox / Full View Modal */}
+      {lightboxIndex !== null && (
+        <div 
+          className="fixed inset-0 z-[100] bg-slate-950/98 backdrop-blur-lg flex items-center justify-center animate-in fade-in duration-300"
+          onClick={closeLightbox}
+        >
+          {/* Header Controls */}
+          <div className="absolute top-8 left-8 right-8 flex justify-between items-center text-white/60">
+            <div className="text-[10px] font-black uppercase tracking-[0.3em]">
+              Image {lightboxIndex + 1} <span className="text-white/20 px-2">/</span> {GALLERY_IMAGES.length}
+            </div>
+            <button 
+              onClick={closeLightbox}
+              className="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all hover:rotate-90"
+              aria-label="Close full view"
+            >
+              <i className="fa-solid fa-xmark text-xl"></i>
+            </button>
+          </div>
+
+          {/* Navigation Arrows */}
+          <button 
+            onClick={prevImage}
+            className="absolute left-4 md:left-8 w-16 h-16 bg-white/5 hover:bg-emerald-600/80 rounded-full flex items-center justify-center text-white transition-all group active:scale-90"
+          >
+            <i className="fa-solid fa-chevron-left text-2xl group-hover:-translate-x-1 transition-transform"></i>
+          </button>
+          
+          <button 
+            onClick={nextImage}
+            className="absolute right-4 md:right-8 w-16 h-16 bg-white/5 hover:bg-emerald-600/80 rounded-full flex items-center justify-center text-white transition-all group active:scale-90"
+          >
+            <i className="fa-solid fa-chevron-right text-2xl group-hover:translate-x-1 transition-transform"></i>
+          </button>
+
+          {/* Image Container */}
+          <div 
+            className="relative max-w-6xl w-full max-h-[85vh] flex items-center justify-center p-4 animate-in zoom-in-95 duration-500"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={GALLERY_IMAGES[lightboxIndex]} 
+              alt="Full gallery view" 
+              className="max-w-full max-h-full object-contain rounded-xl shadow-2xl border border-white/10"
+            />
+          </div>
+
+          {/* Footer Info */}
+          <div className="absolute bottom-8 left-0 right-0 text-center">
+             <div className="inline-block px-6 py-2 bg-emerald-900/50 backdrop-blur-md rounded-full border border-emerald-500/30">
+               <span className="text-emerald-400 font-black uppercase tracking-[0.2em] text-[10px]">Food Rights Alliance Uganda • Institutional Gallery</span>
+             </div>
+             <p className="text-white/40 text-[9px] uppercase tracking-widest mt-4">Use keyboard arrows or buttons to navigate</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
